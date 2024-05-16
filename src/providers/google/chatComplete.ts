@@ -159,6 +159,11 @@ interface GoogleGenerateContentResponse {
       probability: string;
     }[];
   };
+  usageMetadata: {
+    promptTokenCount: number;
+    candidatesTokenCount: number;
+    totalTokenCount: number;
+  };
 }
 
 export const GoogleErrorResponseTransform: (
@@ -190,7 +195,7 @@ export const GoogleChatCompleteResponseTransform: (
     );
     if (errorResposne) return errorResposne;
   }
-
+  const { promptTokenCount = 0, candidatesTokenCount = 0, totalTokenCount = 0 } = response?.usageMetadata;
   if ('candidates' in response) {
     return {
       id: crypto.randomUUID(),
@@ -229,6 +234,11 @@ export const GoogleChatCompleteResponseTransform: (
             finish_reason: generation.finishReason,
           };
         }) ?? [],
+      usage: {
+        prompt_tokens: promptTokenCount,
+        completion_tokens: candidatesTokenCount,
+        total_tokens: totalTokenCount,
+      },
     };
   }
 
