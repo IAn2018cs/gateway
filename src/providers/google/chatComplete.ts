@@ -195,8 +195,9 @@ export const GoogleChatCompleteResponseTransform: (
     );
     if (errorResposne) return errorResposne;
   }
-  const { promptTokenCount = 0, candidatesTokenCount = 0, totalTokenCount = 0 } = response?.usageMetadata;
+  
   if ('candidates' in response) {
+    const { promptTokenCount = 0, candidatesTokenCount = 0, totalTokenCount = 0 } = response?.usageMetadata;
     return {
       id: crypto.randomUUID(),
       object: 'chat_completion',
