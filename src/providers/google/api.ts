@@ -14,18 +14,10 @@ export const GoogleApiConfig: ProviderAPIConfig = {
     }
     switch (mappedFn) {
       case 'chatComplete': {
-        if (model === 'gemini-1.5-flash') {
-          return `/${model}:generateContent?key=${apiKey}`;
-        } else {
-          return `/models/${model}:generateContent?key=${apiKey}`;
-        }
+        return `/models/${model}:generateContent?key=${apiKey}`;
       }
       case 'stream-chatComplete': {
-        if (model === 'gemini-1.5-flash') {
-          return `/${model}:streamGenerateContent?key=${apiKey}`;
-        } else {
-          return `/models/${model}:streamGenerateContent?key=${apiKey}`;
-        }
+        return `/models/${model}:streamGenerateContent?key=${apiKey}`;
       }
       case 'embed': {
         return `/models/${model}:embedContent?key=${apiKey}`;
